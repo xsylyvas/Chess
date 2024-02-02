@@ -1,5 +1,6 @@
 package com.example.chess;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -144,6 +145,7 @@ public class ChessboardView extends View {
         }
     }
 
+    @SuppressLint("SuspiciousIndentation")
     private void handleTouchUp(float x, float y) {
         // Перевірте, чи є обрані координати в межах дошки та чи є обрана фігура
         if (selectedRow != -1 && selectedCol != -1 && chessboard.getPiece(selectedRow, selectedCol) != null) {
