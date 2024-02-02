@@ -1,0 +1,7 @@
+<resources>
+    <array name="levels">
+        <item>Easy</item>
+        <item>Medium</item>
+        <item>Hard</item>
+    </array>
+</resources>
