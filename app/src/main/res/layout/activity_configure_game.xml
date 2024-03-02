@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:backgroundTint="#CC4242"
+    android:backgroundTint="#FFEB3B"
     tools:context=".ConfigureGame">
 
     <ImageView
@@ -16,8 +16,10 @@
         android:src="@drawable/background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -27,69 +29,136 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/levelLabel"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="Select Level"
-        android:textColor="@color/white"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar" />
-
-    <Spinner
-        android:id="@+id/levelSpinner"
-        android:layout_width="368dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
-        android:background="#BFF7C148"
-        android:entries="@array/levels"
-        android:popupBackground="#6750A3"
-        android:textColor="@android:color/white"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"
+
+        android:background="@drawable/rounded_corners"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/levelLabel" />
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
 
+        <TextView
+            android:id="@+id/levelLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
 
-    <TextView
-        android:id="@+id/colorLabel"
-        android:layout_width="wrap_content"
+            android:text="SELECT LEVEL:"
+            android:textColor="#000000"
+            android:textSize="25dp"
+            android:textStyle="bold" />
+
+        <RadioGroup
+            android:id="@+id/levelRadioGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/easyRadioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="Easy"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <RadioButton
+                android:id="@+id/mediumRadioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Medium"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <RadioButton
+                android:id="@+id/hardRadioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hard"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+        </RadioGroup>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="Select Color"
-        android:textColor="@color/white"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/levelSpinner" />
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/rounded_corners"
+        android:gravity="center_horizontal"
 
-    <RadioGroup
-        android:id="@+id/colorRadioGroup"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:orientation="vertical"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/colorLabel">
+        app:layout_constraintTop_toBottomOf="@id/linearLayout">
 
-        <RadioButton
-            android:id="@+id/whiteRadioButton"
+        <TextView
+            android:id="@+id/colorLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:checked="true"
-            android:text="White" />
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:text="SELECT COLOR:"
+            android:textColor="#000000"
+            android:textSize="25dp"
+            android:textStyle="bold" />
 
-        <RadioButton
-            android:id="@+id/blackRadioButton"
+        <RadioGroup
+            android:id="@+id/colorRadioGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Black" />
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:orientation="horizontal">
 
-    </RadioGroup>
+            <RadioButton
+                android:id="@+id/whiteRadioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="6dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="6dp"
+                android:checked="true"
+                android:text="White"
+                android:textColor="@color/black"
+                android:background="@color/white"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <RadioButton
+                android:id="@+id/blackRadioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="6dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="6dp"
+                android:text="Black"
+                android:textColor="@color/white"
+                android:background="@color/black"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+        </RadioGroup>
+    </LinearLayout>
+
 
     <Button
         android:id="@+id/startGameButton"
@@ -98,10 +167,14 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:backgroundTint="#80F7C148"
+        android:backgroundTint="#99F7C148"
         android:text="Start Game"
+        android:textColor="#000000"
+        android:textSize="25dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/colorRadioGroup" />
+        app:layout_constraintTop_toBottomOf="@id/linearLayout2" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
