@@ -13,7 +13,7 @@ public class SoundPlayer {
 
         if (mediaPlayer != null) {
             mediaPlayer.start();
-            // Чекаємо на завершення відтворення
+
             mediaPlayer.setOnCompletionListener(mp -> mediaPlayer.release());
         }
     }

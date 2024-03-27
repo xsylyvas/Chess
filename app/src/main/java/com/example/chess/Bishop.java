@@ -14,7 +14,7 @@ public class Bishop extends ChessPiece {
         }
     }
 
-    // Додайте логіку для правил руху слона, якщо потрібно
+
     @Override
     public boolean isValidMove(int currentRow, int currentCol, int targetRow, int targetCol, ChessPiece[][] board,
                                String currentPlayer,boolean checkInisCheck) {

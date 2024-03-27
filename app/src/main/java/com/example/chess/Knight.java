@@ -25,7 +25,6 @@ public class Knight extends ChessPiece {
         {
             Chessboard tmp = new Chessboard(board);
             tmp.movePiece(currentRow,currentCol,targetRow,targetCol);
-
             if( tmp.isCheck(currentPlayer))return  false;
         }
 

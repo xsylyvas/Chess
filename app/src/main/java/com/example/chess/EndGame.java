@@ -9,14 +9,17 @@ import android.view.Gravity;
 import android.widget.TextView;
 
 public class EndGame {
+    public EndGame()
+    {
+
+    }
     public void Draw(Context context) {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
 
-        // Створіть TextView для налаштування вирівнювання тексту та розміру
         TextView messageText = new TextView(context);
-        messageText.setText("Stalemate");
+        messageText.setText("Draw!");
         messageText.setGravity(Gravity.CENTER); // Вирівняти текст по центру
         messageText.setTextSize(45); // Встановити розмір тексту
         messageText.setTextColor(Color.rgb(76, 48, 115));
@@ -31,11 +34,10 @@ public class EndGame {
         builder.show();
     }
     public void Win(Context context, String player) {
-
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
+        player = player.equals("White") ? "Black" : "White";
 
-        // Створіть TextView для налаштування вирівнювання тексту та розміру
         TextView messageText = new TextView(context);
         messageText.setText(player+" won!");
         messageText.setGravity(Gravity.CENTER); // Вирівняти текст по центру

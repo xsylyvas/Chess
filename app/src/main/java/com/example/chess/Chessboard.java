@@ -2,6 +2,7 @@ package com.example.chess;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Chessboard {
 
@@ -14,14 +15,14 @@ public class Chessboard {
     public Chessboard() {
 
         this.board = new ChessPiece[8][8];
-        // Додатковий код ініціалізації залишається незмінним
-        initializeBoard();
+
+
     }
 
     public Chessboard(Chessboard original) {
         this.board = new ChessPiece[8][8];
 
-        // Копіюємо фігури з оригінальної дошки в новий екземпляр
+
         for (int i = 0; i < 8; i++) {
             System.arraycopy(original.board[i], 0, this.board[i], 0, 8);
         }
@@ -31,8 +32,29 @@ public class Chessboard {
 
         this.board = new ChessPiece[8][8];
         for (int i = 0; i < 8; i++) {
-            System.arraycopy(initialBoard[i], 0, this.board[i], 0, 8);
+            for (int j = 0; j < 8; j++) {
+                ChessPiece piece = initialBoard[i][j];
+
+                if (piece instanceof Pawn) {
+                    this.board[i][j] = new Pawn(piece.getColor());
+                } else if (piece instanceof Rook) {
+                    this.board[i][j] = new Rook(piece.getColor());
+                } else if (piece instanceof Knight) {
+                    this.board[i][j] = new Knight(piece.getColor());
+                } else if (piece instanceof Bishop) {
+                    this.board[i][j] = new Bishop(piece.getColor());
+                } else if (piece instanceof Queen) {
+                    this.board[i][j] = new Queen(piece.getColor());
+                } else if (piece instanceof King) {
+                    this.board[i][j] = new King(piece.getColor());
+                } else {
+                    this.board[i][j] = null;
+                }
+                if(this.board[i][j] != null && piece.hasMoved())this.board[i][j].markMoved();
+            }
         }
+
+
     }
 
     public ChessPiece[][] getBoard() {
@@ -40,51 +62,56 @@ public class Chessboard {
     }
 
 
-    public void initializeBoard() {
-        // Ініціалізація фігур на стандартних початкових позиціях
-        // Додаємо фігури для прикладу
+    public void initializeBoard(String color) {
 
-        // Додаємо пішаки
         for (int i = 0; i < 8; i++) {
-            board[1][i] = new Pawn("Black");
-            board[6][i] = new Pawn("White");
+            board[1][i] = new Pawn(color.equals("White") ? "Black" : "White");
+            board[6][i] = new Pawn(color);
+            ((Pawn) board[1][i]).setPlayerColor(color);
+            ((Pawn) board[6][i]).setPlayerColor(color);
         }
 
+        // Розміщуємо інші фігури
         // Додаємо тури
-        board[0][0] = new Rook("Black");
-        board[0][7] = new Rook("Black");
-        board[7][0] = new Rook("White");
-        board[7][7] = new Rook("White");
+        board[0][0] = new Rook(color.equals("White") ? "Black" : "White");
+        board[0][7] = new Rook(color.equals("White") ? "Black" : "White");
+        board[7][0] = new Rook(color);
+        board[7][7] = new Rook(color);
 
         // Додаємо коні
-        board[0][1] = new Knight("Black");
-        board[0][6] = new Knight("Black");
-        board[7][1] = new Knight("White");
-        board[7][6] = new Knight("White");
+        board[0][1] = new Knight(color.equals("White") ? "Black" : "White");
+        board[0][6] = new Knight(color.equals("White") ? "Black" : "White");
+        board[7][1] = new Knight(color);
+        board[7][6] = new Knight(color);
 
         // Додаємо слони
-        board[0][2] = new Bishop("Black");
-        board[0][5] = new Bishop("Black");
-        board[7][2] = new Bishop("White");
-        board[7][5] = new Bishop("White");
+        board[0][2] = new Bishop(color.equals("White") ? "Black" : "White");
+        board[0][5] = new Bishop(color.equals("White") ? "Black" : "White");
+        board[7][2] = new Bishop(color);
+        board[7][5] = new Bishop(color);
 
         // Додаємо ферзей
-        board[0][3] = new Queen("Black");
-        board[7][3] = new Queen("White");
+        board[0][3] = new Queen(color.equals("White") ? "Black" : "White");
+        board[7][3] = new Queen(color);
 
         // Додаємо королів
-        board[0][4] = new King("Black");
-        board[7][4] = new King("White");
+        board[0][4] = new King(color.equals("White") ? "Black" : "White");
+        board[7][4] = new King(color);
     }
+
     public ChessPiece getPiece(int row, int col) {
         return board[row][col];
     }
 
     public boolean isCheck(String playerColor) {
+
+        String enemyColor;
+        if(Objects.equals(playerColor, "White"))enemyColor = "Black";
+        else enemyColor = "White";
         int kingRow = -1;
         int kingCol = -1;
 
-        // Знаходимо позицію короля поточного гравця
+
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 ChessPiece piece = board[i][j];
@@ -96,13 +123,13 @@ public class Chessboard {
             }
         }
 
-        // Перевіряємо, чи король знаходиться під атакою
+
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 ChessPiece piece = board[i][j];
                 if (piece != null && !piece.getColor().equals(playerColor)) {
-                    // Перевіряємо, чи може фігура атакувати короля
-                    if (piece.isValidMove(i, j, kingRow, kingCol, board, playerColor, true)) {
+
+                    if (piece.isValidMove(i, j, kingRow, kingCol, board, enemyColor, true)) {
 
                         return true; // Шах
 
@@ -114,28 +141,28 @@ public class Chessboard {
         return false; // Немає шаху
     }
     public boolean isCheckmate(String currentPlayer) {
-        // Отримати всі можливі ходи для гравця
+
         List<Move> allMoves = getAllMoves(currentPlayer);
 
-        // Перевірити, чи для кожного ходу гравця відсутня можливість врятуватися від шаху
+
         for (Move move : allMoves) {
             Chessboard tempBoard = new Chessboard(getBoard());
             tempBoard.movePiece(move.getFromRow(), move.getFromCol(), move.getToRow(), move.getToCol());
 
-            // Якщо гравець не в шаху після ходу, то ситуація не матова
+
             if (!tempBoard.isCheck(currentPlayer)) {
                 return false;
             }
         }
 
-        // Якщо для жодного з можливих ходів гравця немає можливості врятуватися, то мат
+
         return true;
     }
     public boolean isDraw(String currentPlayer) {
         return isStalemate(currentPlayer) || isInsufficientMaterial();
     }
     public boolean isStalemate(String currentPlayer) {
-        // Перевіряємо, чи є сталемейт для поточного гравця
+
         List<Move> availableMoves = getAllMoves(currentPlayer);
 
         if (availableMoves.isEmpty() && !isCheck(currentPlayer))return true;
@@ -218,7 +245,7 @@ public class Chessboard {
     public List<Move> getAllMoves(String playerColor) {
         List<Move> allMoves = new ArrayList<>();
 
-        // Проходимо по всіх клітинках дошки
+
         for (int row = 0; row < 8; row++) {
             for (int col = 0; col < 8; col++) {
                 ChessPiece piece = board[row][col];

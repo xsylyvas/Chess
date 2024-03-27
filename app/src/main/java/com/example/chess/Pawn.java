@@ -10,7 +10,7 @@ public class Pawn extends ChessPiece {
     public Pawn(String color) {
         super("Pawn", color, getPawnImageResource(color));
     }
-
+    private String playerColor;
     private static int getPawnImageResource(String color) {
         if (color.equals("White")) {
             return R.drawable.chessplt60;  // Зображення білого пішака
@@ -19,6 +19,11 @@ public class Pawn extends ChessPiece {
         }
     }
 
+
+    public void setPlayerColor(String color)
+    {
+        playerColor = color;
+    }
     @Override
     public boolean isValidMove(int currentRow, int currentCol, int targetRow, int targetCol, ChessPiece[][] board,
                                String currentPlayer,boolean checkInisCheck) {
@@ -32,19 +37,19 @@ public class Pawn extends ChessPiece {
 
             if( tmp.isCheck(currentPlayer))return  false;
         }
-        // Визначте напрямок руху вгору чи вниз в залежності від колору гравця
+
         int forwardDirection ;
 
-        //playerColor = "White";
-        if((Objects.equals("White", "White") && Objects.equals(board[currentRow][currentCol].getColor(), "White")) ||
-                (Objects.equals("White", "Black") && Objects.equals(board[currentRow][currentCol].getColor(), "Black")))forwardDirection=-1;
+        if(Objects.equals(currentPlayer, playerColor))forwardDirection = -1;
         else forwardDirection = 1;
+
 
         // Рух пішака дійсний, якщо він переміщується на одну клітинку вперед
         boolean isValidForwardMove = targetCol == currentCol && targetRow == currentRow + forwardDirection &&
                 board[targetRow][targetCol] == null;
 
         // Рух пішака дійсний, якщо він переміщується на дві клітинки вперед при першому ході
+
         boolean isValidDoubleForwardMove = !hasMoved() && targetCol == currentCol && targetRow == currentRow + 2 * forwardDirection &&
                 board[targetRow][targetCol] == null && board[targetRow - forwardDirection][targetCol] == null;
 
@@ -59,7 +64,9 @@ public class Pawn extends ChessPiece {
     @Override
     public List<Move> getAllMoves(int currentRow, int currentCol, ChessPiece[][] board) {
         List<Move> allMoves = new ArrayList<>();
-        int forwardDirection = (getColor().equals("White")) ? -1 : 1;
+        int forwardDirection=-1;
+        if(Objects.equals(getColor(), playerColor))forwardDirection = -1;
+        else forwardDirection = 1;
 
         // Перевіряємо можливість руху на одну клітинку вперед
         int targetRow = currentRow + forwardDirection;

@@ -14,7 +14,7 @@ public class Queen extends ChessPiece {
         }
     }
 
-    // Додайте логіку для правил руху ферзя, якщо потрібно
+
     @Override
     public boolean isValidMove(int currentRow, int currentCol, int targetRow, int targetCol, ChessPiece[][] board,
                                String currentPlayer,boolean checkInisCheck) {

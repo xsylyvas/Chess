@@ -14,7 +14,7 @@ public class Rook extends ChessPiece {
         }
     }
 
-    // Додайте логіку для правил руху тури, якщо потрібно
+
     @Override
     public boolean isValidMove(int currentRow, int currentCol, int targetRow, int targetCol, ChessPiece[][] board,
                                String currentPlayer,boolean checkInisCheck) {
@@ -28,7 +28,7 @@ public class Rook extends ChessPiece {
 
             if( tmp.isCheck(currentPlayer))return  false;
         }
-        // Перевірка чи немає фігур на шляху руху тури по горизонталі або вертикалі
+
         if (currentRow == targetRow) {
             int minCol = Math.min(currentCol, targetCol);
             int maxCol = Math.max(currentCol, targetCol);

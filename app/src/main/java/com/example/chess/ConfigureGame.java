@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.RadioGroup;
 
 public class ConfigureGame extends AppCompatActivity {
 
@@ -24,7 +25,7 @@ public class ConfigureGame extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed(); // Повертаємося на попередню активність при натисканні на стрілку
+                onBackPressed();
             }
         });
 
@@ -34,8 +35,30 @@ public class ConfigureGame extends AppCompatActivity {
         startGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                 // Отримуємо обрані значення з радіогруп
+                RadioGroup levelRadioGroup = findViewById(R.id.levelRadioGroup);
+                RadioGroup colorRadioGroup = findViewById(R.id.colorRadioGroup);
+
+                int selectedLevelId = levelRadioGroup.getCheckedRadioButtonId();
+                int selectedColorId = colorRadioGroup.getCheckedRadioButtonId();
+
+                // Створюємо новий Intent
                 Intent configureGameIntent = new Intent(ConfigureGame.this, StartGameActivity.class);
+
+
+                String level, color;
+                if(selectedLevelId == R.id.easyRadioButton)level = "easy";
+                else if(selectedLevelId == R.id.mediumRadioButton)level = "medium";
+                else level = "hard";
+                if( selectedColorId == R.id.whiteRadioButton)color = "White";
+                else color = "Black";
+
+                configureGameIntent.putExtra("selectedLevel", level);
+                configureGameIntent.putExtra("selectedColor", color);
+
+
                 startActivity(configureGameIntent);
+
             }
         });
 

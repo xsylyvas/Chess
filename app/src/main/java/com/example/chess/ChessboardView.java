@@ -16,8 +16,10 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
 
+import java.util.Objects;
+
 public class ChessboardView extends View {
-    private Chessboard chessboard;  // Змінено поле board на клас Chessboard
+    private Chessboard chessboard;
     private Paint darkSquarePaint;
     private Paint lightSquarePaint;
     private Paint piecePaint;
@@ -25,8 +27,10 @@ public class ChessboardView extends View {
     private int selectedRow = -1;
     private int selectedCol = -1;
     private String currentPlayer = "White";
-    private String playerColor;  // Колір гравця
-    private String aiColor;
+
+    private Player player;
+    private AIPlayer AIplayer;
+
     private Move moveAiPlayer= new Move (-1,-1,-1,-1);
 
     public ChessboardView(Context context, AttributeSet attrs) {
@@ -38,20 +42,33 @@ public class ChessboardView extends View {
         currentPlayer = (currentPlayer.equals("White")) ? "Black" : "White";
     }
 
-    public void setPlayerColor(String playerColor) {
-        this.playerColor = playerColor;
+
+    public void setCurrentPlayer(String color)
+    {
+        currentPlayer = color;
+    }
+    public void setPlayer(String color) {
+        player = new Player("Michael",color);
+
+    }
+    public void setAIPlayer(String color,int level){
+        AIplayer = new AIPlayer(color,level);
     }
 
-    public void setAiColor(String aiColor) {
-        this.aiColor = aiColor;
-    }
 
     public void setChessboard(Chessboard chessboard) {
         this.chessboard = chessboard;
-        invalidate(); // Запускає перерисовку для відображення нового стану дошки
+        invalidate();
     }
 
+    public Chessboard getChessboard() {
+        return chessboard;
+    }
 
+    public AIPlayer getAIplayer()
+    {
+        return AIplayer;
+    }
 
     private void init() {
         darkSquarePaint = new Paint();
@@ -111,7 +128,7 @@ public class ChessboardView extends View {
     }
 
     private void drawPieceIcon(Canvas canvas, int iconResId, float x, float y, int size) {
-        // Assuming that the piece icon is a drawable resource
+
         BitmapDrawable bitmapDrawable = (BitmapDrawable) getResources().getDrawable(iconResId);
         Bitmap bitmap = Bitmap.createScaledBitmap(bitmapDrawable.getBitmap(), size, size, false);
         canvas.drawBitmap(bitmap, x, y, piecePaint);
@@ -141,17 +158,17 @@ public class ChessboardView extends View {
         if (row >= 0 && row < 8 && col >= 0 && col < 8) {
             selectedRow = row;
             selectedCol = col;
-            invalidate(); // Запускає перерисовку для відображення виділеної клітинки
+            invalidate();
         }
     }
 
     @SuppressLint("SuspiciousIndentation")
     private void handleTouchUp(float x, float y) {
-        // Перевірте, чи є обрані координати в межах дошки та чи є обрана фігура
+
         if (selectedRow != -1 && selectedCol != -1 && chessboard.getPiece(selectedRow, selectedCol) != null) {
             int squareSize = getWidth() / 8;
 
-            // Отримайте нові координати під час відпускання торкання
+
             int releasedCol = (int) (x / squareSize);
             int releasedRow = (int) (y / squareSize);
 
@@ -161,35 +178,44 @@ public class ChessboardView extends View {
 
 
 
-            // Перевірте, чи фігура може здійснити такий хід (логіка перевірки ходу має бути в класі ChessPiece)
             if ( selectedPiece.isValidMove(selectedRow, selectedCol, releasedRow, releasedCol, chessboard.getBoard(),currentPlayer,false))
             {
-                if(selectedPiece.getColor() != currentPlayer)return;
 
-                //new EndGame().Win(getContext(),currentPlayer);
-
+                if(!Objects.equals(selectedPiece.getColor(), currentPlayer))return;
 
                    selectedPiece.markMoved();
-
+                EndGame end = new EndGame();
                     chessboard.movePiece(selectedRow, selectedCol, releasedRow, releasedCol);
-                    switchPlayer();
-                   invalidate();
+
+                   switchPlayer();
+                if(getChessboard().isCheckmate(currentPlayer))end.Win(getContext(),currentPlayer);
+                if(getChessboard().isDraw(currentPlayer))end.Draw(getContext());
+                    invalidate();
+
+
+
+
+
                     new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        AIPlayer a = new AIPlayer("Black");
-                        Move moveAi = a.chooseBestMove(chessboard, currentPlayer);
+
+
+                        Move moveAi = getAIplayer().chooseBestMove(chessboard, currentPlayer);
                         chessboard.getPiece(moveAi.getFromRow(), moveAi.getFromCol()).markMoved();
 
-                        chessboard.movePiece(moveAi.getFromRow(), moveAi.getFromCol(), moveAi.getToRow(), moveAi.getToCol());
+                        chessboard.movePiece(moveAi.getFromRow(), moveAi.getFromCol(), moveAi.getToRow(), moveAi.getToCol());;
                         switchPlayer();
+                        if(getChessboard().isCheckmate(currentPlayer))end.Win(getContext(),currentPlayer);
+                        if(getChessboard().isDraw(currentPlayer))end.Draw(getContext());
+
                         selectedCol = moveAi.getFromCol();
                         selectedRow = moveAi.getFromRow();
                         // Візуалізація ходу ШІ
                         invalidate();
                     }
                 }, 1000);
-                       // ((Activity) getContext()).finish();
+
 
             }
 

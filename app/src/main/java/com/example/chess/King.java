@@ -29,7 +29,7 @@ public class King extends ChessPiece {
 
             if( tmp.isCheck(currentPlayer))return  false;
         }
-        // Рух короля дійсний, якщо він переміщується на одну клітинку у будь-якому напрямку
+
         int rowDiff = Math.abs(targetRow - currentRow);
         int colDiff = Math.abs(targetCol - currentCol);
        if ( currentRow == targetRow && currentCol+2==targetCol&& canCastleKingside(currentRow, currentCol, board))return true;
@@ -64,18 +64,18 @@ public class King extends ChessPiece {
     }
 
     private boolean canCastleKingside(int currentRow, int currentCol, ChessPiece[][] board) {
-        // Додаємо всі умови для рокіровки в сторону короля
-        return !hasMoved() && !isCheck() &&
+
+        return !hasMoved()  &&
                 board[currentRow][currentCol + 1] == null &&
                 board[currentRow][currentCol + 2] == null &&
                 board[currentRow][currentCol + 3] instanceof Rook &&
                 !board[currentRow][currentCol + 3].hasMoved();
     }
 
-    // Метод для перевірки можливості рокіровки короля в сторону ферзя
+
     private boolean canCastleQueenside(int currentRow, int currentCol, ChessPiece[][] board) {
-        // Додаємо всі умови для рокіровки в сторону ферзя
-        return !hasMoved() && !isCheck() &&
+
+        return !hasMoved() &&
                 board[currentRow][currentCol - 1] == null &&
                 board[currentRow][currentCol - 2] == null &&
                 board[currentRow][currentCol - 3] == null &&
