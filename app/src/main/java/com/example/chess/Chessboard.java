@@ -9,7 +9,7 @@ public class Chessboard {
 
     private static final int SIZE = 8;
 
-    private ChessPiece[][] board;
+    private final ChessPiece[][] board;
 
 
     public Chessboard() {
@@ -37,6 +37,8 @@ public class Chessboard {
 
                 if (piece instanceof Pawn) {
                     this.board[i][j] = new Pawn(piece.getColor());
+                    ((Pawn) board[i][j]).playerColor=((Pawn) piece).playerColor;
+
                 } else if (piece instanceof Rook) {
                     this.board[i][j] = new Rook(piece.getColor());
                 } else if (piece instanceof Knight) {
@@ -51,6 +53,7 @@ public class Chessboard {
                     this.board[i][j] = null;
                 }
                 if(this.board[i][j] != null && piece.hasMoved())this.board[i][j].markMoved();
+
             }
         }
 
@@ -165,8 +168,7 @@ public class Chessboard {
 
         List<Move> availableMoves = getAllMoves(currentPlayer);
 
-        if (availableMoves.isEmpty() && !isCheck(currentPlayer))return true;
-        return false;
+        return availableMoves.isEmpty() && !isCheck(currentPlayer);
     }
     public boolean isInsufficientMaterial()
     {
@@ -214,11 +216,7 @@ public class Chessboard {
         if ((whiteBishopCount == 0 && whiteKnightCount == 1) && (blackBishopCount == 0 && blackKnightCount == 0)) {
             return true;
         }
-        if ((whiteBishopCount == 0 && whiteKnightCount == 0) && (blackBishopCount == 0 && blackKnightCount == 1)) {
-            return true;
-        }
-
-        return false;
+        return (whiteBishopCount == 0 && whiteKnightCount == 0) && (blackBishopCount == 0 && blackKnightCount == 1);
     }
 
 

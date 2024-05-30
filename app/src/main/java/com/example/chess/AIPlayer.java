@@ -8,10 +8,10 @@ public class AIPlayer {
     private static String enemyColor;
     private static int MAX_DEPTH = 2;  // Глибина аналізу для алгоритму мінімаксу
     public AIPlayer(String color,int level) {
-        this.color = color;
-        this.MAX_DEPTH = level;
-        if(Objects.equals(color, "White")) this.enemyColor ="Black";
-        else this.enemyColor = "White";
+        AIPlayer.color = color;
+        MAX_DEPTH = level;
+        if(Objects.equals(color, "White")) enemyColor ="Black";
+        else enemyColor = "White";
 
     }
 
@@ -52,7 +52,7 @@ public class AIPlayer {
         List<Move> availableMoves = board.getAllMoves(maximizingPlayer ? color : enemyColor);
         if(availableMoves.isEmpty() && !maximizingPlayer)return 1000;
         if (depth == 0 ) {
-            return (int) (evaluateMaterial(board)*4 + pieceDevelopment(board));
+            return (int) (evaluateMaterial(board)*3 + pieceDevelopment(board));
         }
 
 

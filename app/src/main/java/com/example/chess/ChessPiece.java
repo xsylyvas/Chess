@@ -2,8 +2,8 @@ package com.example.chess;
 import java.util.List;import java.util.ArrayList;
 public abstract class ChessPiece {
     private boolean hasMoved = false;
-    private String name;
-    private String color;
+    private final String name;
+    private final String color;
     private int iconResId;
 
     public ChessPiece(String name, String color) {

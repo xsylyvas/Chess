@@ -1,0 +1,355 @@
+@startuml
+
+/' diagram meta data start
+config=StructureConfiguration;
+{
+  "projectClassification": {
+    "searchMode": "OpenProject", // OpenProject, AllProjects
+    "includedProjects": "",
+    "pathEndKeywords": "*.impl",
+    "isClientPath": "",
+    "isClientName": "",
+    "isTestPath": "",
+    "isTestName": "",
+    "isMappingPath": "",
+    "isMappingName": "",
+    "isDataAccessPath": "",
+    "isDataAccessName": "",
+    "isDataStructurePath": "",
+    "isDataStructureName": "",
+    "isInterfaceStructuresPath": "",
+    "isInterfaceStructuresName": "",
+    "isEntryPointPath": "",
+    "isEntryPointName": "",
+    "treatFinalFieldsAsMandatory": false
+  },
+  "graphRestriction": {
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "removeByInheritance": "", // inheritance/annotation based filtering is done in a second step
+    "removeByAnnotation": "",
+    "removeByClassPackage": "", // cleanup the graph after inheritance/annotation based filtering is done
+    "removeByClassName": "",
+    "cutMappings": false,
+    "cutEnum": true,
+    "cutTests": true,
+    "cutClient": true,
+    "cutDataAccess": false,
+    "cutInterfaceStructures": false,
+    "cutDataStructures": false,
+    "cutGetterAndSetter": true,
+    "cutConstructors": true
+  },
+  "graphTraversal": {
+    "forwardDepth": 6,
+    "backwardDepth": 6,
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "hideMappings": false,
+    "hideDataStructures": false,
+    "hidePrivateMethods": true,
+    "hideInterfaceCalls": true, // indirection: implementation -> interface (is hidden) -> implementation
+    "onlyShowApplicationEntryPoints": false, // root node is included
+    "useMethodCallsForStructureDiagram": "ForwardOnly" // ForwardOnly, BothDirections, No
+  },
+  "details": {
+    "aggregation": "GroupByClass", // ByClass, GroupByClass, None
+    "showClassGenericTypes": true,
+    "showMethods": true,
+    "showMethodParameterNames": true,
+    "showMethodParameterTypes": true,
+    "showMethodReturnType": true,
+    "showPackageLevels": 2,
+    "showDetailedClassStructure": true
+  },
+  "rootClass": "com.example.chess.StartGameActivity",
+  "extensionCallbackMethod": "" // qualified.class.name#methodName - signature: public static String method(String)
+}
+diagram meta data end '/
+
+
+
+digraph g {
+    rankdir="TB"
+    splines=polyline
+    
+
+'nodes 
+subgraph cluster_1322970774 { 
+   	label=example
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   subgraph cluster_114011516 { 
+   	label=chess
+	labeljust=l
+	fillcolor="#d8d8d8"
+	style=filled
+   
+   AIPlayer553503793[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)AIPlayer</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ chooseBestMove(chessboard: Chessboard, currentPlayer: String): Move</TD></TR>
+<TR><TD ALIGN="LEFT" >- evaluateMaterial(board: Chessboard): int</TD></TR>
+<TR><TD ALIGN="LEFT" >- getPieceValue(piece: ChessPiece): int</TD></TR>
+<TR><TD ALIGN="LEFT" >- minimax(board: Chessboard, depth: int, alpha: int, beta: int, maximizingPlayer: boolean): int</TD></TR>
+<TR><TD ALIGN="LEFT" >- pieceDevelopment(board: Chessboard): int</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+Bishop553503793[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Bishop</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ getAllMoves(currentRow: int, currentCol: int, board: ChessPiece[][]): List&lt;Move&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >- getBishopImageResource(color: String): int</TD></TR>
+<TR><TD ALIGN="LEFT" >+ isValidMove(currentRow: int, currentCol: int, targetRow: int, targetCol: int, board: ChessPiece[][], currentPlayer: String, checkInisCheck: boolean): boolean</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+ChessPiece553503793[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)ChessPiece</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   color: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   hasMoved: boolean [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   iconResId: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   name: String [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ getAllMoves(currentRow: int, currentCol: int, board: ChessPiece[][]): List&lt;Move&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ isValidMove(currentRow: int, currentCol: int, targetRow: int, targetCol: int, board: ChessPiece[][], currentPlayer: String, checkInisCheck: boolean): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ markMoved()</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+Chessboard553503793[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Chessboard</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   board: ChessPiece[][] [0..*]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ getAllMoves(playerColor: String): List&lt;Move&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getPiece(row: int, col: int): ChessPiece</TD></TR>
+<TR><TD ALIGN="LEFT" >+ initializeBoard(color: String)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ isCheck(playerColor: String): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ isCheckmate(currentPlayer: String): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ isDraw(currentPlayer: String): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ isStalemate(currentPlayer: String): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ movePiece(fromRow: int, fromCol: int, toRow: int, toCol: int)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+ChessboardView553503793[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)ChessboardView</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   AIplayer: AIPlayer [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   chessboard: Chessboard [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   currentPlayer: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   darkSquarePaint: Paint [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   lightSquarePaint: Paint [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   moveAiPlayer: Move [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   piecePaint: Paint [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   player: Player [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   selectedCol: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   selectedRow: int [1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >- drawPieceIcon(canvas: Canvas, iconResId: int, x: float, y: float, size: int)</TD></TR>
+<TR><TD ALIGN="LEFT" >- handleTouchDown(x: float, y: float)</TD></TR>
+<TR><TD ALIGN="LEFT" >- handleTouchUp(x: float, y: float)</TD></TR>
+<TR><TD ALIGN="LEFT" >- init()</TD></TR>
+<TR><TD ALIGN="LEFT" ># onDraw(canvas: Canvas)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ onTouchEvent(event: MotionEvent): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ switchPlayer()</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+EndGame553503793[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)EndGame</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ Draw(context: Context)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ Win(context: Context, player: String)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+King553503793[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)King</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >- canCastleKingside(currentRow: int, currentCol: int, board: ChessPiece[][]): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >- canCastleQueenside(currentRow: int, currentCol: int, board: ChessPiece[][]): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getAllMoves(currentRow: int, currentCol: int, board: ChessPiece[][]): List&lt;Move&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >- getKingImageResource(color: String): int</TD></TR>
+<TR><TD ALIGN="LEFT" >+ isValidMove(currentRow: int, currentCol: int, targetRow: int, targetCol: int, board: ChessPiece[][], currentPlayer: String, checkInisCheck: boolean): boolean</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+Knight553503793[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Knight</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ getAllMoves(currentRow: int, currentCol: int, board: ChessPiece[][]): List&lt;Move&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >- getKnightImageResource(color: String): int</TD></TR>
+<TR><TD ALIGN="LEFT" >+ isValidMove(currentRow: int, currentCol: int, targetRow: int, targetCol: int, board: ChessPiece[][], currentPlayer: String, checkInisCheck: boolean): boolean</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+Move553503793[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Move</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   fromCol: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   fromRow: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   toCol: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   toRow: int [1]</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+Pawn553503793[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Pawn</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   playerColor: String [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ getAllMoves(currentRow: int, currentCol: int, board: ChessPiece[][]): List&lt;Move&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >- getPawnImageResource(color: String): int</TD></TR>
+<TR><TD ALIGN="LEFT" >+ isValidMove(currentRow: int, currentCol: int, targetRow: int, targetCol: int, board: ChessPiece[][], currentPlayer: String, checkInisCheck: boolean): boolean</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+Player553503793[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Player</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   color: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   name: String [0..1]</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+Queen553503793[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Queen</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ getAllMoves(currentRow: int, currentCol: int, board: ChessPiece[][]): List&lt;Move&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >- getQueenImageResource(color: String): int</TD></TR>
+<TR><TD ALIGN="LEFT" >+ isValidMove(currentRow: int, currentCol: int, targetRow: int, targetCol: int, board: ChessPiece[][], currentPlayer: String, checkInisCheck: boolean): boolean</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+Rook553503793[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Rook</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ getAllMoves(currentRow: int, currentCol: int, board: ChessPiece[][]): List&lt;Move&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >- getRookImageResource(color: String): int</TD></TR>
+<TR><TD ALIGN="LEFT" >+ isValidMove(currentRow: int, currentCol: int, targetRow: int, targetCol: int, board: ChessPiece[][], currentPlayer: String, checkInisCheck: boolean): boolean</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+StartGameActivity553503793[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)StartGameActivity</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   chessboard: Chessboard [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   chessboardView: ChessboardView [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   color: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   level: String [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" ># onCreate(savedInstanceState: Bundle)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+} 
+
+'edges    
+ChessPiece553503793 -> Bishop553503793[arrowhead=none, arrowtail=empty, dir=both];
+ChessPiece553503793 -> King553503793[arrowhead=none, arrowtail=empty, dir=both];
+ChessPiece553503793 -> Knight553503793[arrowhead=none, arrowtail=empty, dir=both];
+ChessPiece553503793 -> Pawn553503793[arrowhead=none, arrowtail=empty, dir=both];
+ChessPiece553503793 -> Queen553503793[arrowhead=none, arrowtail=empty, dir=both];
+ChessPiece553503793 -> Rook553503793[arrowhead=none, arrowtail=empty, dir=both];
+Chessboard553503793 -> ChessPiece553503793[label="board
+[0..*]"];
+ChessboardView553503793 -> AIPlayer553503793[label="AIplayer
+[0..1]"];
+ChessboardView553503793 -> Chessboard553503793[label="chessboard
+[0..1]"];
+ChessboardView553503793 -> Move553503793[label="moveAiPlayer
+[0..1]"];
+ChessboardView553503793 -> Player553503793[label="player
+[0..1]"];
+StartGameActivity553503793 -> AIPlayer553503793[label="onCreate() -> chooseBestMove()"];
+StartGameActivity553503793 -> Chessboard553503793[label="chessboard
+[0..1]"];
+StartGameActivity553503793 -> ChessboardView553503793[label="chessboardView
+[0..1]"];
+    
+}
+@enduml

@@ -1,8 +1,8 @@
 package com.example.chess;
 
 public class Player {
-    private String name;
-    private String color;
+    private final String name;
+    private final String color;
 
     public Player(String name, String color) {
         this.name = name;

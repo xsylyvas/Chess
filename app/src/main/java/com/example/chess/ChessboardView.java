@@ -31,7 +31,7 @@ public class ChessboardView extends View {
     private Player player;
     private AIPlayer AIplayer;
 
-    private Move moveAiPlayer= new Move (-1,-1,-1,-1);
+    private final Move moveAiPlayer= new Move (-1,-1,-1,-1);
 
     public ChessboardView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -201,10 +201,10 @@ public class ChessboardView extends View {
                     public void run() {
 
 
-                        Move moveAi = getAIplayer().chooseBestMove(chessboard, currentPlayer);
+                        Move moveAi = AIPlayer.chooseBestMove(chessboard, currentPlayer);
                         chessboard.getPiece(moveAi.getFromRow(), moveAi.getFromCol()).markMoved();
 
-                        chessboard.movePiece(moveAi.getFromRow(), moveAi.getFromCol(), moveAi.getToRow(), moveAi.getToCol());;
+                        chessboard.movePiece(moveAi.getFromRow(), moveAi.getFromCol(), moveAi.getToRow(), moveAi.getToCol());
                         switchPlayer();
                         if(getChessboard().isCheckmate(currentPlayer))end.Win(getContext(),currentPlayer);
                         if(getChessboard().isDraw(currentPlayer))end.Draw(getContext());

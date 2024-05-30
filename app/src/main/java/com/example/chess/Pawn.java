@@ -10,7 +10,7 @@ public class Pawn extends ChessPiece {
     public Pawn(String color) {
         super("Pawn", color, getPawnImageResource(color));
     }
-    private String playerColor;
+    public String playerColor;
     private static int getPawnImageResource(String color) {
         if (color.equals("White")) {
             return R.drawable.chessplt60;  // Зображення білого пішака

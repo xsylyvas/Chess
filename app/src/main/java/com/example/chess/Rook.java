@@ -12,7 +12,7 @@ public class Rook extends ChessPiece {
         } else {
             return R.drawable.chessrdt60;  // Зображення чорної тури
         }
-    }
+    }//https://drive.google.com/file/d/144cooxRMo37skIr99d1Dcuwu6qvZ83dv/view?usp=sharing
 
 
     @Override
